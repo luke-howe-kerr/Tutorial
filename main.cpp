@@ -2,10 +2,12 @@
 #include <string>
 using namespace std;
 
+bool ret;
+string answer;
+
+//Determining a yes or no answer
 bool ask_if_yes(string question)
 {
-	bool ret;
-	string answer;
 	cout << question << endl;
 	do {
 		cout<< "Enter y or n: ";
@@ -31,6 +33,7 @@ int main (int argc, char* argv[])
     cout << "How many items are in the purchase?" << endl;
     cin >> count;
 	
+	//Determining if there is a discount
     if ((price >= 2500) && (count >= 5)) {
         discount = .9;
     } else {
@@ -39,6 +42,7 @@ int main (int argc, char* argv[])
 	
     price *= discount;
 	
+	//Warning for orders over $100
 	if (price > 10000) {
 		bool cont = ask_if_yes ("Your order is over $100. Do you want to continue?");
 		if (!cont) {
@@ -47,17 +51,15 @@ int main (int argc, char* argv[])
 		}
     }
 	
-	bool is_gift = ask_if_yes("Is this a gift?");
-	if (is_gift) {
+	//Asks if you want to make it a gift and asks for your message
+	ask_if_yes("Is this a gift?");
+	if (ret) {
 		cout << "What is your message?" << endl;
 		cin >> message;
+		cout << "Your message: " << message << endl;
 	}
 	
 	cout << "The sale price is $" << price/100 << "." << price%100 << endl;
-	
-	if (is_gift) {
-		cout << "Your message: " << message << endl;
-	}
 	
     return 0;
 }
